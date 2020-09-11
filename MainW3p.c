@@ -271,24 +271,40 @@ void timers(void) {
 ////Расчёт таблиц синуса
 static void sin_table_update (float_t koeff)
 {
-	int Phase;
-	
-	if (IsRev) Phase = 240; else Phase = 0;
-    for(uint16_t i = 0; i < TIM_STEPS; ++i)
-    {
-    	sinA[i] = (uint16_t)(TIM_PERIOD * koeff * (1 + sin(PI * (2.0f * i / TIM_STEPS + Phase / 180.0f))));
-    }
+//	int Phase;
+//	
+//	if (IsRev) Phase = 240; else Phase = 0;
+//    for(uint16_t i = 0; i < TIM_STEPS; ++i)
+//    {
+//    	sinA[i] = (uint16_t)(TIM_PERIOD * koeff * (1 + sin(PI * (2.0f * i / TIM_STEPS + Phase / 180.0f))));
+//    }
+//		
+//	Phase	= 120;
+//		for(uint16_t i = 0; i < TIM_STEPS; ++i)
+//    {
+//    	sinB[i] = (uint16_t)(TIM_PERIOD * koeff * (1 + sin(PI * (2.0f * i / TIM_STEPS + Phase / 180.0f))));
+//    }
+//		
+//	if (IsRev) Phase = 0; else Phase = 240;
+//		for(uint16_t i = 0; i < TIM_STEPS; ++i)
+//    {
+//    	sinC[i] = (uint16_t)(TIM_PERIOD * koeff * (1 + sin(PI * (2.0f * i / TIM_STEPS + Phase / 180.0f))));
+//    }
 		
-	Phase	= 120;
-		for(uint16_t i = 0; i < TIM_STEPS; ++i)
-    {
-    	sinB[i] = (uint16_t)(TIM_PERIOD * koeff * (1 + sin(PI * (2.0f * i / TIM_STEPS + Phase / 180.0f))));
-    }
+		//////////////////
+		int A = 0; float B; float PhA; float PhB; float PhC;
 		
-	if (IsRev) Phase = 0; else Phase = 240;
+		if (IsRev) PhA = 0 / 180.0f; else PhA = 240 / 180.0f;
+		PhB = 120 / 180.0f;
+		if (IsRev) PhC = 240 / 180.0f; else PhC = 0 / 180.0f;
+		A = TIM_PERIOD * koeff;
+		
 		for(uint16_t i = 0; i < TIM_STEPS; ++i)
-    {
-    	sinC[i] = (uint16_t)(TIM_PERIOD * koeff * (1 + sin(PI * (2.0f * i / TIM_STEPS + Phase / 180.0f))));
+    {	
+			B = 2.0f * i / TIM_STEPS;
+			sinA[i] = (uint16_t)( A * (1 + sin(PI * (B + PhA))));
+    	sinB[i] = (uint16_t)( A * (1 + sin(PI * (B + PhB))));
+			sinC[i] = (uint16_t)( A * (1 + sin(PI * (B + PhC))));
     }
 }
 
