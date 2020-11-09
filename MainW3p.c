@@ -149,19 +149,18 @@ void adcVoltage_init() //Напряжение на А6
 //Иноциализация пинов генерации ШИМа
 void initIO(void)
 {
-	 //------Назначение GPIO------------- 
-	 //-----------Ввод структур--------------// 
+ //------Назначение GPIO------------- 
 	 GPIO_InitTypeDef gpio;
 	 GPIO_InitTypeDef gpio_n;
 
  //------------------------------------
-	GPIO_StructInit(&gpio); // GPIO A - Tim1 Channel 1P, 2P, 3P, Enable
+	GPIO_StructInit(&gpio); // GPIO A - Tim1 Channel 1, 2, 3, Enable
 	gpio.GPIO_Mode = GPIO_Mode_AF_PP;
 	gpio.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10;
 	gpio.GPIO_Speed = GPIO_Speed_10MHz;
 	GPIO_Init(GPIOA, &gpio);
  //------------------------------------ 
-	GPIO_StructInit(&gpio_n); /* GPIOB Configuration: Channel 1N, 2N , 3N as alternate function push-pull */ 
+	GPIO_StructInit(&gpio_n); /* GPIOB Configuration: Channel 1, 2, 3 as alternate function push-pull */ 
 	gpio_n.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15; 
 	gpio_n.GPIO_Mode = GPIO_Mode_AF_PP; 
 	gpio_n.GPIO_Speed = GPIO_Speed_10MHz; 
